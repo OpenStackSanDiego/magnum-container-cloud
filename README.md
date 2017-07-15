@@ -73,10 +73,8 @@ When connecting using PuTTY on Windows, use the following instructions to login 
 
 Once the you're logged in as root execute the following commands. The git command downloads the scripts to setup VirtualBox and Fuel. The "setup-fuel.sh" installs VirtualBox and downloads the Fuel scripts.
 
-* yum -y install git
-* git clone https://github.com/OpenStackSanDiego/magnum-container-cloud
-* cd magnum-container-cloud
-* sh setup-magnum.sh
+* wget https://raw.githubusercontent.com/OpenStackSanDiego/magnum-container-cloud/master/setup.sh
+* sh setup.sh
 
 ## Shutting it all down
 
