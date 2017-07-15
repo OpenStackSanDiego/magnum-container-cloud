@@ -14,7 +14,7 @@ time packstack --allinone \
 yum install -y openstack-magnum-ui
 
 
-. keystonerc_admin
+. ~/keystonerc_admin
 
 IMG_URL=https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-25-20170626.0/CloudImages/x86_64/images/Fedora-Atomic-25-20170626.0.x86_64.qcow2
 IMG_NAME=Fedora-Atomic-25
