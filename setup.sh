@@ -16,6 +16,30 @@ yum install -y openstack-magnum-ui
 
 . ~/keystonerc_admin
 
+
+# delete the demo public subnet
+OLD_SUBNET_ID=`openstack subnet show public_subnet -f value -c id`
+ROUTER_ID=`openstack router show router1 -c id -f value`
+# is there an openstack cli replacement for router gateway clear?
+neutron router-gateway-clear $ROUTER_ID
+openstack subnet delete $OLD_SUBNET_ID
+
+# add the new public subnet
+
+IP=`hostname -I | cut -d' ' -f 1`
+SUBNET=`ip -4 -o addr show dev bond0 | grep $IP | cut -d ' ' -f 7`
+DNS_NAMESERVER=`grep -i nameserver /etc/resolv.conf | head -n1 | cut -d ' ' -f2`
+
+openstack subnet create                         \
+        --network public                        \
+        --dns-nameserver $DNS_NAMESERVER        \
+        --subnet-range $SUBNET                  \
+        $SUBNET
+
+SUBNET_ID=`openstack subnet show $SUBNET -c id -f value`
+openstack router add subnet $ROUTER_ID $SUBNET_ID
+
+# install some OS images
 IMG_URL=https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-25-20170626.0/CloudImages/x86_64/images/Fedora-Atomic-25-20170626.0.x86_64.qcow2
 IMG_NAME=Fedora-Atomic-25
 OS_DISTRO=fedora-atomic
