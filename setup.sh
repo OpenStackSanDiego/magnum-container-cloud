@@ -13,9 +13,14 @@ time packstack --allinone \
   
 yum install -y openstack-magnum-ui
 
+# fix for https://bugs.launchpad.net/horizon/+bug/1671084 (heat topology tab not present in horizon)
+sed -i 's/resources:index/reource:index/g' /usr/share/openstack-dashboard/openstack_dashboard/dashboards/project/stacks/tabs.py
+
+# end of OpenStack cloud install
+
+# OpenStack cloud configuration starts here...
 
 . ~/keystonerc_admin
-
 
 # delete the demo public subnet
 OLD_SUBNET_ID=`openstack subnet show public_subnet -f value -c id`
