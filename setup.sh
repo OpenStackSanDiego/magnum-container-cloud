@@ -89,7 +89,21 @@ IMG_NAME=CirrOS-0.3.5
 OS_DISTRO=cirros
 wget -q -O - $IMG_URL | \
 glance  --os-image-api-version 2 image-create --protected True --name $IMG_NAME \
-        --visibility public --disk-format raw --container-format bare --property os_distro=$OS_DISTRO --progress        
+        --visibility public --disk-format raw --container-format bare --property os_distro=$OS_DISTRO --progress      
+	
+	
+	
+#GATEWAY=`ip route list | egrep "^default" | cut -d' ' -f 3`
+#IP=`hostname -I | cut -d' ' -f 1`
+#SUBNET=`ip -4 -o addr show dev bond0 | grep $IP | cut -d ' ' -f 7`
+#
+#ip route del default via $GATEWAY dev bond0
+#ip addr del $SUBNET dev bond0
+#ip addr add $SUBNET dev br-ex
+#ifconfig br-ex up
+#ovs-vsctl add-port br-ex bond0
+#ip route add default via $GATEWAY dev br-ex
+	
 
 
   
