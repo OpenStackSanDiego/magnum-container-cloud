@@ -37,7 +37,23 @@ openstack subnet create                         \
         $SUBNET
 
 SUBNET_ID=`openstack subnet show $SUBNET -c id -f value`
-openstack router add subnet $ROUTER_ID $SUBNET_ID
+neutron router-gateway-set router1 public
+
+# create an internal network
+INTERNAL_SUBNET=192.168.10.0/24
+
+openstack network create internal
+
+openstack subnet create                         \
+        --network internal                      \
+        --dns-nameserver $DNS_NAMESERVER        \
+        --subnet-range $INTERNAL_SUBNET         \
+        $INTERNAL_SUBNET
+
+ROUTER_ID=`openstack router show router1 -c id -f value`
+INTERNAL_SUBNET_ID=`openstack subnet show $INTERNAL_SUBNET -c id -f value`
+openstack router add subnet $ROUTER_ID $INTERNAL_SUBNET_ID
+
 
 # install some OS images
 IMG_URL=https://download.fedoraproject.org/pub/alt/atomic/stable/Fedora-Atomic-25-20170626.0/CloudImages/x86_64/images/Fedora-Atomic-25-20170626.0.x86_64.qcow2
