@@ -98,25 +98,25 @@ Keypair Name: Magnum
 
 Create a Kubernetes Cluster Template:
 
-Project->Container Infra->Cluster Templates>+ Create Cluster Templates
-Cluster Template Name: Kubernetes-Atomic
-Container Orchestration Engine: Kubernetes
-Public: Checked
-Disabled TLS: Checked
-Image: Fedora-Atomic-25
-Keypair: Magnum
-External Network ID: Public
-DNS: 8.8.8.8
-Floating IP: Checked
-Submit
+* Project->Container Infra->Cluster Templates>+ Create Cluster Templates
+* Cluster Template Name: Kubernetes-Atomic
+* Container Orchestration Engine: Kubernetes
+* Public: Checked
+* Disabled TLS: Checked
+* Image: Fedora-Atomic-25
+* Keypair: Magnum
+* External Network ID: Public
+* DNS: 8.8.8.8
+* Floating IP: Checked
+* Submit
 
 Create a Kubernetes Cluster based upon the template.
 
-Cluster Templates->Kubernetes-Atomic->Start Cluster
-Cluster Name: Kubernetes-Atomic-Dev
-Master Count: 1
-Node Count: 2
-Sumbit
+* Cluster Templates->Kubernetes-Atomic->Start Cluster
+* Cluster Name: Kubernetes-Atomic-Dev
+* Master Count: 1
+* Node Count: 2
+* Sumbit
 
 Click through to the see the list of compute instances, network security groups, and networks created.
 
