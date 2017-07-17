@@ -132,8 +132,8 @@ Log into the Docker master node via SSH. Use the Magnum key created above.
 
 Startup the basic Docker container to verify functionality (this required root access).
 
-sudo su -
-docker run helloworld
+* sudo su -
+* docker run helloworld
 
 
 ## Shutting it all down
