@@ -76,6 +76,50 @@ Once the you're logged in as root execute the following commands. The git comman
 * wget https://raw.githubusercontent.com/OpenStackSanDiego/magnum-container-cloud/master/setup.sh
 * sh setup.sh
 
+## Startup a Kubernetes Cluster
+
+Create a new keypair called Magnum
+
+Create a Kubernetes Cluster Template:
+
+Project->Container Infra->Cluster Templates>+ Create Cluster Templates
+Cluster Template Name: Kubernetes-Atomic
+Container Orchestration Engine: Kubernetes
+Public: Checked
+Disabled TLS: Checked
+Image: Fedora-Atomic-25
+Keypair: Magnum
+External Network ID: Public
+DNS: 8.8.8.8
+Floating IP: Checked
+Submit
+
+Create a Kubernetes Cluster based upon the template.
+
+Cluster Templates->Kubernetes-Atomic->Start Cluster
+Cluster Name: Kubernetes-Atomic-Dev
+Master Count: 1
+Node Count: 2
+Sumbit
+
+Click through to the see the list of compute instances, network security groups, and networks created.
+
+Log into the Kubernetes master node via SSH. Use the Magnum key created above.
+
+## Startup a Docker Swarm Cluster
+
+Repleate the steps above with a new template and cluster. Replace the COE with "Docker Swarm"
+
+Click through to the see the list of compute instances, network security groups, and networks created.
+
+Log into the Docker master node via SSH. Use the Magnum key created above.
+
+Startup the basic Docker container to verify functionality (this required root access).
+
+sudo su -
+docker run helloworld
+
+
 ## Shutting it all down
 
 From the Packet Application website, select the bare metal server and mark it for deletion.
