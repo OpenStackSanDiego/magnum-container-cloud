@@ -47,7 +47,7 @@ Config:  Type I
 
 OS:  CentOS 7
 
-Location: Parsippany, NJ 
+Location: Select One
 
 If you are connecting from a Windows machine, you can use these instructions on how to generate SSH keys.
 
@@ -56,6 +56,8 @@ https://help.packet.net/quick-start/generate-ssh-keys
 Make sure you upload your new key into Packet before you start the server!
 
 It'll take about 8 minutes for the new server to start up.
+
+Be sure to take note of the new server IP address.
 
 ## Log into the Bare Metal Server
 
@@ -71,14 +73,28 @@ When connecting using PuTTY on Windows, use the following instructions to login 
 
 ## Download and Run Install Scripts
 
-Once the you're logged in as root execute the following commands. The git command downloads the scripts to setup VirtualBox and Fuel. The "setup-fuel.sh" installs VirtualBox and downloads the Fuel scripts.
+Once the you're logged in as root execute the following commands. This installs the underlying cloud and container orchestration engines (COE)
 
 * wget https://raw.githubusercontent.com/OpenStackSanDiego/magnum-container-cloud/master/setup.sh
 * sh setup.sh
+* more keystonerc_admin
+
+Take note of the OS_USERNAME (admin) and OS_PASSWORD. You'll need these to log into the GUI.
+
+Restart the system.
+
+* reboot
+
+## Log into the Cloud GUI
+
+Once everything has rebooted. Connect to the GUI at: http://YOUR_SERVER_IP/. Use the login admin with the OS_PASSWORD from above.
 
 ## Startup a Kubernetes Cluster
 
 Create a new keypair called Magnum
+
+Project->Key Pairs->Create Key Pair
+Keypair Name: Magnum
 
 Create a Kubernetes Cluster Template:
 
