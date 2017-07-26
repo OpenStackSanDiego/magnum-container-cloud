@@ -33,9 +33,10 @@ Sign up at www.packet.net and use code SDOPENSTACK. You'll need to provide a cre
 ## Startup a Bare Metal Server
 
 Packet has instructions on how to startup your first server. 
-You'll want to deploy a 'Type 1' server. Pick whichever region you'd like (New Jersey or California).
 
 https://help.packet.net/quick-start/deploy-a-server
+
+* If you have previously setup an account and SSH keys with packet.net you can skip to step #4 (deploy a server) from the deploy-a-server instructions.
 
 After creating a project make sure to use the following settings for deploying the server
 
@@ -47,7 +48,7 @@ Config:  Type I
 
 OS:  CentOS 7
 
-Location: Select One
+Location: Parisppany, NJ
 
 If you are connecting from a Windows machine, you can use these instructions on how to generate SSH keys.
 
@@ -75,15 +76,18 @@ When connecting using PuTTY on Windows, use the following instructions to login 
 
 Once the you're logged in as root execute the following commands. This installs the underlying cloud and container orchestration engines (COE)
 
-* wget https://raw.githubusercontent.com/OpenStackSanDiego/magnum-container-cloud/master/setup.sh
-* sh setup.sh
-* more keystonerc_admin
-
+````
+wget https://raw.githubusercontent.com/OpenStackSanDiego/magnum-container-cloud/master/setup.sh
+sh setup.sh
+more keystonerc_admin
+````
 Take note of the OS_USERNAME (admin) and OS_PASSWORD. You'll need these to log into the GUI.
 
 Restart the system.
 
-* reboot
+````
+reboot
+````
 
 ## Log into the Cloud GUI
 
@@ -93,30 +97,43 @@ Once everything has rebooted. Connect to the GUI at: http://YOUR_SERVER_IP/. Use
 
 Create a new keypair called Magnum
 
-Project->Key Pairs->Create Key Pair
-Keypair Name: Magnum
+* Project->Computer->Key Pairs->Create Key Pair
+* Keypair Name: Magnum
+* A magnum.pem file will be downloaded to your computer
 
 Create a Kubernetes Cluster Template:
 
 * Project->Container Infra->Cluster Templates>+ Create Cluster Templates
-* Cluster Template Name: Kubernetes-Atomic
-* Container Orchestration Engine: Kubernetes
-* Public: Checked
-* Disabled TLS: Checked
-* Image: Fedora-Atomic-25
-* Keypair: Magnum
-* External Network ID: Public
-* DNS: 8.8.8.8
-* Floating IP: Checked
-* Submit
+  
+   __Info__    
+  * Cluster Template Name: ````Kubernetes-Atomic````
+  * Container Orchestration Engine: Kubernetes
+  * Public: Checked
+  * Disabled TLS: Checked
+  
+  __Node Spec__
+   * Image: Fedora-Atomic-25
+   * Keypair: Magnum
+   
+  __Network__
+   * External Network ID: ````public```` (needs to be all lower case)
+   * DNS: ````8.8.8.8````
+   * Floating IP: Checked
+ 
+ * Click submit
 
 Create a Kubernetes Cluster based upon the template.
 
-* Cluster Templates->Kubernetes-Atomic->Start Cluster
-* Cluster Name: Kubernetes-Atomic-Dev
-* Master Count: 1
-* Node Count: 2
-* Sumbit
+* Cluster Templates->Kubernetes-Atomic->Create Cluster
+ 
+  __Info__
+  * Cluster Name: ````Kubernetes-Atomic-Dev````
+  
+  __Size__
+  * Master Count: 1
+  * Node Count: 2
+  
+* Click Submit
 
 Click through to the see the list of compute instances, network security groups, and networks created.
 
@@ -124,7 +141,7 @@ Log into the Kubernetes master node via SSH. Use the Magnum key created above.
 
 ## Startup a Docker Swarm Cluster
 
-Repleate the steps above with a new template and cluster. Replace the COE with "Docker Swarm"
+Repeat the steps above with a new template and cluster. Replace the COE with "Docker Swarm"
 
 Click through to the see the list of compute instances, network security groups, and networks created.
 
@@ -141,4 +158,3 @@ Startup the basic Docker container to verify functionality (this required root a
 From the Packet Application website, select the bare metal server and mark it for deletion.
 
 You are welcome to keep the server running but remember that you will keep being charged until you delete it via the Packet web app.
-
