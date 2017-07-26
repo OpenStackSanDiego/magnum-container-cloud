@@ -74,15 +74,44 @@ Create a Kubernetes Cluster based upon the template.
   
 * Click Submit
 
-Click through to the see the list of compute instances, network security groups, and networks created.
+While it is deploying, click the cluster name and the stack id to see the template engine (HEAT) deploying the various components. You'll see the networks, virtual machine instances, and security groups being deployed.
+
+Click "Compute->Instances" to see the virtual machines instances that are deployed as part of the K8s deployment. You'll see both master and slave instances.
+
+Click "Network->Security Groups" to see the security groups that were created for the master and slave instances. 
+
+Click "Network->Network Topology->Graph" to see the segmented virtual networks that were created.
 
 Log into the Kubernetes master node via SSH. Use the Magnum key created above.
+
+## Second Kubernetes Deployment
+
+We'll create a second Kubernetes deployment using the same template.
+
+* Cluster Templates->Kubernetes-Atomic->Create Cluster
+ 
+  __Info__
+  * Cluster Name: ````Kubernetes-Atomic-Prod````
+  
+  __Size__
+  * Master Count: 1
+  * Node Count: 2
+  
+* Click Submit
+
+Notice how the new cluster has it's own segmented network, virtual machines, and security groups from the other cluster.
+
+## Scale Up
+
+We'll scale up the cluster to increate the computing power available to the cluster.
+
+
 
 ## Startup a Docker Swarm Cluster
 
 Repeat the steps above with a new template and cluster. Replace the COE with "Docker Swarm"
 
-Click through to the see the list of compute instances, network security groups, and networks created.
+Click through to the see the templated deployment, compute instances, network security groups, and networks created.
 
 Log into the Docker master node via SSH. Use the Magnum key created above.
 
