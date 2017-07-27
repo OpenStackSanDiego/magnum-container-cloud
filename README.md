@@ -82,7 +82,12 @@ Click "Network->Security Groups" to see the security groups that were created fo
 
 Click "Network->Network Topology->Graph" to see the segmented virtual networks that were created.
 
-Log into the Kubernetes master node via SSH. Use the Magnum key created above.
+Log into the Kubernetes master node via SSH and verify that Kubernetes is ready. Use the Magnum key created above.
+
+````
+sudo su -
+kubectl cluster-info
+````
 
 ## Second Kubernetes Deployment
 
@@ -103,9 +108,21 @@ Notice how the new cluster has it's own segmented network, virtual machines, and
 
 ## Scale Up
 
-We'll scale up the cluster to increate the computing power available to the cluster.
+We'll scale up the cluster to increate the computing power available to the cluster. We'll increase the cluster node count from 2 to 3.
 
+* Cluster->Kubernetes-Atomic-Prod->Update Cluster
 
+  __Size__
+  * Master Count: 1
+  * Node Count: 2 -> 3
+  
+Submit
+
+Notice how the cluster has grown to include a new virtual machine as part of the cluster. Click through to the "Compute Instances" and the "Network Topology" to see the change.
+
+## Cluster Shutdown
+
+Go ahead and shutdown one of the clusters (Kubernetes-Atomic-Prod). Notice how the network, virtual machines, and security groups are deallocated.
 
 ## Startup a Docker Swarm Cluster
 
